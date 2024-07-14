@@ -20,26 +20,30 @@ const SpecialDishCard = ({ dish }) => {
   return (
     <>
       <div
-        className="px-8 py-6 border border-gray-100 rounded-2xl shadow-xl relative"
+        className="px-8 py-6 border border-gray-100 rounded-2xl shadow-xl relative mt-2"
         onClick={open}
       >
         <div className="absolute bg-green-400 top-0 right-0 p-3 rounded-es-2xl rounded-se-2xl">
           <FaHeart className="text-white text-xs" />
         </div>
         <img
-          className="h-60 w-60   mx-auto "
+          className="xl:h-60 xl:w-60 lg:h-48 lg:w-48 h-36 w-36   mx-auto "
           src="https://png.pngtree.com/png-clipart/20230928/original/pngtree-burger-png-images-png-image_13164941.png"
           alt=""
         />
-        <h2 className="font-semibold text-2xl">{dish.name}</h2>
-        <h3 className=" text-gray-500 my-2">Description of the item</h3>
-        <div className="flex justify-between text-xl">
+        <h2 className="font-semibold text-lg lg:text-2xl">{dish.name}</h2>
+        <h3 className=" text-gray-500 my-2 text-xs lg:text-base">
+          Description of the item
+        </h3>
+        <div className="flex justify-between text-base lg:text-xl">
           <p>
             {" "}
-            <span className="text-red-600 text-sm font-semibold pr-1">$</span>
+            <span className="text-red-600 text-xs lg:text-sm font-semibold pr-1">
+              $
+            </span>
             {dish.price}
           </p>
-          <p className=" flex items-center text-xl">
+          <p className=" flex items-center lg:text-xl">
             <FaStar className="text-yellow-400" />
             4.9
           </p>

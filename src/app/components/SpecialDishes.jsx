@@ -15,9 +15,9 @@ const SpecialDishes = () => {
       setDishes(newData);
     }
   }, [data]);
-  console.log(dishes);
+  // console.log(dishes);
   return (
-    <div className="lg:mx-16 mx-8 lg:px-14 px-4 flex flex-col gap-4 pt-10 mb-40  ">
+    <div className="lg:mx-16 mx-8 lg:px-14 px-4 flex flex-col gap-4 pt-10 mb-14  ">
       <h2 className="uppercase text-red-600 text-xs">Special dishes</h2>
       <div className="grid grid-cols-2 ">
         <h1 className="text-xl md:text-3xl font-semibold">
@@ -33,9 +33,9 @@ const SpecialDishes = () => {
         </div>
       </div>
       <div className="grid grid-cols-1  md:grid-cols-3 gap-3 lg:gap-8 xl:gap-12 my-4  mt-10 2xl:grid-cols-4  ">
-        {dishes.map((dish) => (
-          <SpecialDishCard key={dish.id} dish={dish} />
-        ))}
+        {/* {dishes.map((dish) => ( */}
+        <SpecialDishCard key={"dish.id"} dish={"dish"} />
+        {/* ))} */}
         {/* <SpecialDishCard />
         <SpecialDishCard />
 

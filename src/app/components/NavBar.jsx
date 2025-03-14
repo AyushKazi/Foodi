@@ -33,7 +33,7 @@ const NavBar = () => {
               opened ? "block" : "hidden"
             }  absolute right-0 w-full top-[70px] text-base   bg-green-300`}
           >
-            <button className="flex hover:bg-white w-full p-3 px-6">
+            <button className="flex hover:bg-white w-full p-3 px-6 ">
               Home
             </button>
             <button className="flex gap-2 items-center hover:bg-white w-full p-3 px-6">

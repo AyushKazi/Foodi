@@ -6,6 +6,7 @@ import NavBar from "./app/components/NavBar";
 import MainDisplay from "./app/components/MainDisplay";
 import ProductCategories from "./app/components/ProductCategories";
 import SpecialDishes from "./app/components/SpecialDishes";
+import CustomerFeedback from "./app/components/CustomerFeedback";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
         <MainDisplay />
         <ProductCategories />
         <SpecialDishes />
+        <CustomerFeedback />
       </MantineProvider>
     </QueryClientProvider>
   );

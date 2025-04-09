@@ -15,7 +15,7 @@ const MainDisplay = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="text-3xl lg:text-5xl font-bold"
+          className="text-4xl lg:text-6xl font-extrabold leading-tight text-gray-800"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -23,7 +23,7 @@ const MainDisplay = () => {
         >
           Dive into Delights Of Delectable{" "}
           <motion.span
-            className="text-green-500"
+            className="text-green-600"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -34,7 +34,7 @@ const MainDisplay = () => {
         </motion.h1>
 
         <motion.p
-          className="lg:text-lg pr-10 tracking-wide text-gray-600"
+          className="lg:text-xl pr-10 tracking-wide text-gray-700 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

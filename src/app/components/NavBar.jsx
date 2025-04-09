@@ -47,7 +47,7 @@ const NavBar = () => {
         </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 items-center lg:text-lg">
+        <div className="hidden md:flex gap-8 items-center lg:text-xl text-gray-800">
           {menuItems.map((item, index) => (
             <Menu
               key={item.label}
@@ -63,7 +63,7 @@ const NavBar = () => {
                 >
                   <Button
                     variant="subtle"
-                    className="flex gap-2 items-center hover:text-green-500"
+                    className="flex gap-2 items-center hover:text-green-600 text-lg"
                   >
                     {item.label}
                     {item.hasSubmenu && (
@@ -71,7 +71,7 @@ const NavBar = () => {
                         animate={{ rotate: opened ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <IoIosArrowDown className="text-green-500" />
+                        <IoIosArrowDown className="text-green-600" />
                       </motion.span>
                     )}
                   </Button>

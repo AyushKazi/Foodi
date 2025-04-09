@@ -2,6 +2,7 @@ import React from "react";
 import Chef from "../../assets/chef.png";
 import { Star } from "lucide-react";
 import { Carousel } from "@mantine/carousel";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -38,103 +39,165 @@ const testimonials = [
 
 const CustomerFeedback = () => {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-16 overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Image Section */}
-        <div className="relative h-[500px]">
+        <motion.div
+          className="relative h-[500px]"
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           {/* Background semi-circle */}
-          <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-green-400 rounded-t-[40px]" />
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-[200px] bg-green-400 rounded-t-[40px]"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+            style={{ originY: 1 }}
+          />
 
           {/* Chef image container */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          <motion.div
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+            initial={{ y: 200, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          >
             <img
               src={Chef}
               alt="Chef"
               className="h-[550px] w-auto object-contain"
               style={{ filter: "drop-shadow(0 0 20px rgba(0,0,0,0.1))" }}
             />
-          </div>
+          </motion.div>
 
           {/* Stats Card */}
-          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-xl p-6 w-[80%] z-10">
+          <motion.div
+            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-xl p-6 w-[80%] z-10"
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          >
             <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-3xl font-bold text-green-500">15+</p>
-                <p className="text-sm text-gray-600">Years of Experience</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-green-500">250+</p>
-                <p className="text-sm text-gray-600">Menu Items</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-green-500">18.6k</p>
-                <p className="text-sm text-gray-600">Happy Customers</p>
-              </div>
+              {[
+                { value: "15+", label: "Years of Experience" },
+                { value: "250+", label: "Menu Items" },
+                { value: "18.6k", label: "Happy Customers" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                >
+                  <p className="text-3xl font-bold text-green-500">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-gray-600">{stat.label}</p>
+                </motion.div>
+              ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Testimonials Section */}
-        <div className="flex flex-col gap-8 mt-12 md:mt-0">
+        <motion.div
+          className="flex flex-col gap-8 mt-12 md:mt-0"
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <div>
-            <p className="uppercase text-rose-500 font-medium tracking-widest text-sm">
+            <motion.p
+              className="uppercase text-rose-500 font-medium tracking-widest text-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Testimonials
-            </p>
-            <h2 className="text-4xl font-bold leading-tight mt-2">
+            </motion.p>
+            <motion.h2
+              className="text-4xl font-bold leading-tight mt-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               What Our Customers Say About Us
-            </h2>
+            </motion.h2>
           </div>
 
-          <Carousel
-            slideSize="100%"
-            slideGap="md"
-            loop
-            withControls={false}
-            withIndicators
-            classNames={{
-              indicator: "bg-gray-300 w-2 h-2 transition-all",
-              indicators: "mt-8",
-            }}
-            styles={{
-              indicator: {
-                "&[data-active]": {
-                  width: "2rem",
-                  backgroundColor: "#4ADE80",
-                },
-              },
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
-            {testimonials.map((testimonial) => (
-              <Carousel.Slide key={testimonial.id}>
-                <div className="bg-gray-50 rounded-2xl p-6">
-                  <p className="text-gray-600 italic mb-6">
-                    "{testimonial.comment}"
-                  </p>
+            <Carousel
+              slideSize="100%"
+              slideGap="md"
+              loop
+              withControls={false}
+              withIndicators
+              classNames={{
+                indicator: "bg-gray-300 w-2 h-2 transition-all",
+                indicators: "mt-8",
+              }}
+              styles={{
+                indicator: {
+                  "&[data-active]": {
+                    width: "2rem",
+                    backgroundColor: "#4ADE80",
+                  },
+                },
+              }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <Carousel.Slide key={testimonial.id}>
+                  <motion.div
+                    className="bg-gray-50 rounded-2xl p-6"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                  >
+                    <p className="text-gray-600 italic mb-6">
+                      "{testimonial.comment}"
+                    </p>
 
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">
-                        {testimonial.role}
-                      </p>
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div>
+                        <h4 className="font-semibold">{testimonial.name}</h4>
+                        <p className="text-sm text-gray-500">
+                          {testimonial.role}
+                        </p>
+                      </div>
+                      <div className="ml-auto flex items-center gap-1">
+                        <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                        <span className="font-semibold">
+                          {testimonial.rating}
+                        </span>
+                      </div>
                     </div>
-                    <div className="ml-auto flex items-center gap-1">
-                      <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      <span className="font-semibold">
-                        {testimonial.rating}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Carousel.Slide>
-            ))}
-          </Carousel>
-        </div>
+                  </motion.div>
+                </Carousel.Slide>
+              ))}
+            </Carousel>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { useCartStore } from "../stateHooks/use_cart";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger, Menu, Button } from "@mantine/core";
 import CartModal from "./CartModal";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NavBar = () => {
   const { cartItems } = useCartStore();
@@ -22,19 +23,32 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 bg-white z-50 shadow-sm">
+    <motion.nav
+      className="sticky top-0 bg-white z-50 shadow-sm"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="flex justify-between items-center p-4 container mx-auto">
         {/* Logo */}
-        <div className="flex justify-center items-center lg:text-3xl font-bold">
-          <span className="text-white text-3xl px-2 py-1 bg-green-400 rounded-xl">
+        <motion.div
+          className="flex justify-center items-center lg:text-3xl font-bold"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <motion.span
+            className="text-white text-3xl px-2 py-1 bg-green-400 rounded-xl"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+          >
             F
-          </span>
+          </motion.span>
           OODI
-        </div>
+        </motion.div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center lg:text-lg">
-          {menuItems.map((item) => (
+          {menuItems.map((item, index) => (
             <Menu
               key={item.label}
               trigger="hover"
@@ -42,15 +56,26 @@ const NavBar = () => {
               closeDelay={200}
             >
               <Menu.Target>
-                <Button
-                  variant="subtle"
-                  className="flex gap-2 items-center hover:text-green-500"
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 >
-                  {item.label}
-                  {item.hasSubmenu && (
-                    <IoIosArrowDown className="text-green-500" />
-                  )}
-                </Button>
+                  <Button
+                    variant="subtle"
+                    className="flex gap-2 items-center hover:text-green-500"
+                  >
+                    {item.label}
+                    {item.hasSubmenu && (
+                      <motion.span
+                        animate={{ rotate: opened ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <IoIosArrowDown className="text-green-500" />
+                      </motion.span>
+                    )}
+                  </Button>
+                </motion.div>
               </Menu.Target>
               {item.hasSubmenu && (
                 <Menu.Dropdown>
@@ -65,74 +90,143 @@ const NavBar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-6 lg:text-lg">
-          <button className="hover:text-green-500">
+          <motion.button
+            className="hover:text-green-500"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <LuSearch className="text-xl" />
-          </button>
-          <button className="relative hover:text-green-500" onClick={openCart}>
+          </motion.button>
+          <motion.button
+            className="relative hover:text-green-500"
+            onClick={openCart}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <HiOutlineShoppingBag className="text-xl" />
-            {cartItems > 0 && (
-              <div className="absolute -top-2 -right-2 bg-green-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cartItems}
-              </div>
-            )}
-          </button>
-          <button className="flex items-center gap-2 px-6 py-3 rounded-3xl text-white font-medium bg-green-500 hover:bg-green-600 transition-colors">
+            <AnimatePresence>
+              {cartItems > 0 && (
+                <motion.div
+                  className="absolute -top-2 -right-2 bg-green-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                >
+                  {cartItems}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+          <motion.button
+            className="flex items-center gap-2 px-6 py-3 rounded-3xl text-white font-medium bg-green-500 hover:bg-green-600 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <FiPhoneCall />
             <span>Contact</span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <motion.div
+          className="md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <Burger
             opened={opened}
             onClick={toggle}
             aria-label="Toggle navigation"
             className="text-gray-600"
           />
-        </div>
+        </motion.div>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`${opened ? "block" : "hidden"} md:hidden bg-white border-t`}
-      >
-        <div className="container mx-auto px-4 py-2">
-          {menuItems.map((item) => (
-            <button
-              key={item.label}
-              className="flex items-center gap-2 w-full p-3 hover:bg-gray-50 rounded-lg"
-            >
-              {item.label}
-              {item.hasSubmenu && <IoIosArrowDown className="text-green-500" />}
-            </button>
-          ))}
-          <div className="flex items-center justify-between gap-4 mt-4 p-3 border-t">
-            <button className="hover:text-green-500">
-              <LuSearch className="text-xl" />
-            </button>
-            <button
-              className="relative hover:text-green-500"
-              onClick={openCart}
-            >
-              <HiOutlineShoppingBag className="text-xl" />
-              {cartItems > 0 && (
-                <div className="absolute -top-2 -right-2 bg-green-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItems}
-                </div>
-              )}
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-3xl text-white font-medium bg-green-500 hover:bg-green-600 transition-colors">
-              <FiPhoneCall />
-              <span>Contact</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence>
+        {opened && (
+          <motion.div
+            className="md:hidden bg-white border-t"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="container mx-auto px-4 py-2">
+              {menuItems.map((item, index) => (
+                <motion.button
+                  key={item.label}
+                  className="flex items-center gap-2 w-full p-3 hover:bg-gray-50 rounded-lg"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item.label}
+                  {item.hasSubmenu && (
+                    <IoIosArrowDown className="text-green-500" />
+                  )}
+                </motion.button>
+              ))}
+              <motion.div
+                className="flex items-center justify-between gap-4 mt-4 p-3 border-t"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <motion.button
+                  className="hover:text-green-500"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <LuSearch className="text-xl" />
+                </motion.button>
+                <motion.button
+                  className="relative hover:text-green-500"
+                  onClick={openCart}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <HiOutlineShoppingBag className="text-xl" />
+                  <AnimatePresence>
+                    {cartItems > 0 && (
+                      <motion.div
+                        className="absolute -top-2 -right-2 bg-green-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                      >
+                        {cartItems}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+                <motion.button
+                  className="flex items-center gap-2 px-4 py-2 rounded-3xl text-white font-medium bg-green-500 hover:bg-green-600 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FiPhoneCall />
+                  <span>Contact</span>
+                </motion.button>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Cart Modal */}
       <CartModal opened={cartOpened} close={closeCart} />
-    </nav>
+    </motion.nav>
   );
 };
 
